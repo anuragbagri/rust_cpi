@@ -1,6 +1,7 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 use solana_program::{
     account_info::{AccountInfo, next_account_info},
+    entrypoint,
     entrypoint::ProgramResult,
     pubkey::Pubkey,
 };
@@ -12,7 +13,7 @@ struct OnChainData {
 } // this is what we are storing in the blockchain 
 
 fn process_intruction(
-    program_id: &PubKey,
+    program_id: &Pubkey,
     accounts: &[AccountInfo], //[data account]
     intruction_data: &[u8],
 ) -> ProgramResult {
@@ -27,5 +28,5 @@ fn process_intruction(
     }
 
     counter.serialize(&mut *data_account.data.borrow_mut());
-    ok(());
+    Ok(())
 }
